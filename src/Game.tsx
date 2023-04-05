@@ -30,7 +30,7 @@ const Game: React.FC = function () {
         if (!gameOver) {
             const arr = newRandomMove(clearBoard);
             setBoard(arr!);
-            console.log('Board created!')
+            console.log('Board created!');
         }
     }, [gameOver]);
 
@@ -44,12 +44,6 @@ const Game: React.FC = function () {
         const wc = winningCombinations;
         const players = [1, 2];
 
-        if (arr.every((value) => value !== 0)) {
-            setWinner(3);
-            setGameOver(true);
-            return;
-        }
-
         for (const i in wc) {
             for (const p in players) {
                 if (arr[wc[i][0]] === players[p] && arr[wc[i][0]] === arr[wc[i][1]] && arr[wc[i][1]] === arr[wc[i][2]]) {
@@ -58,6 +52,12 @@ const Game: React.FC = function () {
                     return;
                 }
             }
+        }
+
+        if (arr.every((value) => value !== 0)) {
+            setWinner(3);
+            setGameOver(true);
+            return;
         }
     };
 

@@ -2,7 +2,7 @@
 
 Just for fun
 
-[Play online here](https://pechera.github.io/tic-tac-toe)
+**[Play online here](https://pechera.github.io/tic-tac-toe)**
 
 ### Run locally
 
