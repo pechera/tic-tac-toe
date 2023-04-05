@@ -22,7 +22,9 @@ const randomNum = (num: number): number => {
 };
 
 const Game: React.FC = function () {
+    // 1 for X, 2 for O, 3 for Nodody
     const [winner, setWinner] = useState<0 | 1 | 2 | 3>(0);
+
     const [gameOver, setGameOver] = useState<boolean>(false);
     const [board, setBoard] = useState<number[]>(clearBoard);
 
@@ -30,7 +32,6 @@ const Game: React.FC = function () {
         if (!gameOver) {
             const arr = newRandomMove(clearBoard);
             setBoard(arr!);
-            console.log('Board created!');
         }
     }, [gameOver]);
 
@@ -40,7 +41,7 @@ const Game: React.FC = function () {
         return newArr;
     };
 
-    const checkTheWinner = (arr: number[]): void => {
+    const checkTheWinner = (arr: number[]): boolean => {
         const wc = winningCombinations;
         const players = [1, 2];
 
@@ -49,7 +50,7 @@ const Game: React.FC = function () {
                 if (arr[wc[i][0]] === players[p] && arr[wc[i][0]] === arr[wc[i][1]] && arr[wc[i][1]] === arr[wc[i][2]]) {
                     setWinner(players[p] as 1 | 2);
                     setGameOver(true);
-                    return;
+                    return true;
                 }
             }
         }
@@ -57,8 +58,10 @@ const Game: React.FC = function () {
         if (arr.every((value) => value !== 0)) {
             setWinner(3);
             setGameOver(true);
-            return;
+            return true;
         }
+
+        return false;
     };
 
     const newRandomMove = (arr: number[]): number[] | undefined => {
@@ -78,10 +81,11 @@ const Game: React.FC = function () {
         if (gameOver || board[cell] === 1 || board[cell] === 2) return;
 
         const newMoveArr = newPlayerMove(cell);
-        checkTheWinner(newMoveArr);
+        const isWinner = checkTheWinner(newMoveArr);
 
         const rndMoveArr = newRandomMove(newMoveArr);
-        checkTheWinner(rndMoveArr!);
+
+        if (!isWinner) checkTheWinner(rndMoveArr!);
 
         setBoard(rndMoveArr!);
     };

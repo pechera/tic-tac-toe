@@ -55,7 +55,6 @@ button {
 
 .inactive {
     border: 1px solid grey;
-    color: grey !important;
 }
 
 .inactive:hover {
