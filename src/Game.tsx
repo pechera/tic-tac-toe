@@ -30,6 +30,7 @@ const Game: React.FC = function () {
         if (!gameOver) {
             const arr = newRandomMove(clearBoard);
             setBoard(arr!);
+            console.log('Board created!')
         }
     }, [gameOver]);
 
